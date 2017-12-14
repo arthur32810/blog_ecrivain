@@ -8,7 +8,7 @@
 	while($data = $chapters->fetch())
 	{ ?> 
 		<div class="post-preview">
-			<a href="index.php?action=post&id=<?= $data['id']?>"> 
+			<a href="index.php?action=chapter&id=<?= $data['id']?>"> 
 	            <h2 class="post-title ">
 	                <?= htmlspecialchars($data['title']) ?>
 	            </h2>
@@ -26,7 +26,7 @@
 	               Chapitre n° <?= $data['chapter']?>
 	               <?php 
 	               if(!empty($_SESSION['role']) && $_SESSION['role'] == 'admin' || !empty($_SESSION['role']) && $_SESSION['role'] == 'author'){ ?> 
-	           			<a href="index.php?action=update_post&postId=<?= $data['id']?>"> Modification </a> <?php 
+	           			<a href="index.php?action=update_chapter&chapterId=<?= $data['id']?>"> Modification </a> <?php 
 	           		}?>
 	       		</p>     	
 		</div>
