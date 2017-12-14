@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
   <head>
 
@@ -8,22 +8,22 @@
     <meta name="description" content="Histoire 'Billet Simple pour l'Alaska' écrit par Jean Forteroche">
     <meta name="author" content="Arthur Robert">
 
-    <LINK REL="SHORTCUT ICON" href="public/img/alaska.ico">
+    <LINK REL="SHORTCUT ICON" href="../view/public/img/alaska.ico">
         
 
     <title> <?= $title?> </title>
     <?php if(!empty($script)){ echo $script;} ?>
 
     <!-- Bootstrap core CSS -->
-    <link href="public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../view/public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
-    <link href="public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../view/public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <link href="public/css/clean-blog.min.css" rel="stylesheet">
+    <link href="../view/public/css/clean-blog.min.css" rel="stylesheet">
 
 
 
@@ -87,7 +87,7 @@
     </nav>
 
     <!-- Page Header -->
-    <header class="masthead " style="background-image: url('public/img/alaska-lg.jpg')">
+    <header class="masthead " style="background-image: url('../view/public/img/alaska-lg.jpg')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
@@ -121,11 +121,11 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="public/vendor/jquery/jquery.min.js"></script>
-    <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../view/public/vendor/jquery/jquery.min.js"></script>
+    <script src="../view/public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom scripts for this template -->
-    <script src="public/js/clean-blog.min.js"></script>
+    <script src="../view/public/js/clean-blog.min.js"></script>
 
   </body>
 

@@ -4,7 +4,7 @@
 	class ChapterEntityManager{
 		public static function getAllChapter(){
 			$db = DBManager::dbConnect();
-			$req = $db->query('SELECT * FROM chapter');
+			$req = $db->query('SELECT * FROM chapter ORDER BY chapter');
 			return $req;
 		}
 	}
