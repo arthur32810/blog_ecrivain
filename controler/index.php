@@ -3,7 +3,7 @@
 require 'Controler.php';
 
 	if(isset($_GET['action'])){
-		if($_GET['action'] == 'allChapter'){
+		if($_GET['action'] == 'allChapter'){ // Demande tous les chapitres
 			$chapters = Chapter::allChapter();
 			require '../view/ChaptersView.php';
 		}
@@ -19,8 +19,11 @@ require 'Controler.php';
 				header('Location: index.php?action=allChapter&existPost=no');
 			}
 		}
-		elseif ($_GET['action'] == 'connect'){
-			
+		elseif ($_GET['action'] == 'connect'){ // Demande de connection
+
+			$connexion = User::connect();
+			list($pseudo, $password) = $connexion;
+			require '../view/userConnexion.php';
 		}
 	}
 	else{

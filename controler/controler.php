@@ -28,3 +28,19 @@
 			}
 		}
 	}
+
+	class User{
+		public static function connect(){
+	        session_start();
+
+	        if(!empty($_COOKIE['pseudo'])){
+	             $pseudo = $_COOKIE['pseudo'];} 
+	        else {$pseudo='';} 
+	                    
+	        if(!empty($_COOKIE['pass'])){ 
+	            $password = $_COOKIE['pass'];} 
+	        else{$password='';} 
+
+	        return array($pseudo, $password);
+	    }
+	}
