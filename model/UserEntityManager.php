@@ -4,7 +4,7 @@
 	class UserEntityManager{
 		public static function Cryptage($user){
 
-			$Clef = 'blog_ecrivain_OC';
+			$Clef = DBManager::Clef();
 
 			$LClef = strlen($Clef);
 			$LMDP = strlen($user->getPassword());
