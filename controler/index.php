@@ -19,12 +19,18 @@ require 'Controler.php';
 				header('Location: index.php?action=allChapter&existPost=no');
 			}
 		}
-		elseif ($_GET['action'] == 'connect'){ // Demande de connection
-			
+
+		// Espace Membres 
+
+		elseif ($_GET['action'] == 'connect'){ // Demande de connexion
+
 			require '../view/userConnexion.php';
 		}
-		elseif ($_GET['action'] == 'deconnexion'){
+		elseif ($_GET['action'] == 'deconnexion'){ // Demande de deconnexion
 			User::deconnexion();
+		}
+		elseif ($_GET['action'] == 'inscription'){
+			require('../view/userInscription.php');
 		}
 	}
 	else{
