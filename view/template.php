@@ -78,7 +78,7 @@
                <?php } ?>
                 
                 <li class="nav-item">
-                  <a class="nav-link" href="index.php?action=deconnection">deconnexion</a>
+                  <a class="nav-link" href="index.php?action=deconnexion">deconnexion</a>
                 </li> 
             <?php }?>            
           </ul>

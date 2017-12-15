@@ -63,18 +63,13 @@ if(isset($_POST['connect'])){
 			$connexion = UserEntityManager::connexion($user); // Connexion de l'utilisateur
 
 			if(!empty($connexion)){
+
 				session_start();
 
 				$_SESSION['pseudo'] = $user->getPseudo();
 				$_SESSION['pass'] = $user->getPassword();
 				$_SESSION['role'] = $connexion['role'];
 				$_SESSION['id'] = $connexion['id'];
-
-				if(!empty($_POST['cookie']))
-					{
-						setcookie('pseudo', $_SESSION['pseudo'], time() + 30*24*3600, null, null, false, true);
-						setcookie('pass', $_SESSION['pass'], time() + 30*24*3600, null, null, false, true); 
-					}
 				
 				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=allChapter&connected=ok">';	
 			}

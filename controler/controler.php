@@ -1,12 +1,14 @@
 <?php
 	class Chapter{
 		public static function allChapter() {
+			session_start();
 			require_once '../model/ChapterEntityManager.php';
 			$chapters = ChapterEntityManager::getAllChapter();
 			return $chapters;
 		}
 
 		public  function chapter($id){
+			session_start();
 			require_once '../model/ChapterEntity.php';
 
 			$post = new ChapterEntity();
@@ -30,17 +32,17 @@
 	}
 
 	class User{
-		public static function connect(){
-	        session_start();
 
-	        if(!empty($_COOKIE['pseudo'])){
-	             $pseudo = $_COOKIE['pseudo'];} 
-	        else {$pseudo='';} 
-	                    
-	        if(!empty($_COOKIE['pass'])){ 
-	            $password = $_COOKIE['pass'];} 
-	        else{$password='';} 
+	    public static function deconnexion(){
+	    	session_start();
+	        // Suppression des variables de session et de la session
+	        $_SESSION = array();
+	        session_destroy();
 
-	        return array($pseudo, $password);
+	        // Suppression des cookies de connexion automatique
+	        setcookie('login', '');
+	        setcookie('pass_hache', '');
+
+	        header('Location: index.php?action=allChapter&deconnected=yes');
 	    }
 	}

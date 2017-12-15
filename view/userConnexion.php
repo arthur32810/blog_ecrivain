@@ -29,18 +29,13 @@
 	<form action="" method="post">
 		<div>
 			<label class="col-form-label" for="pseudo">Pseudo</label>
-			<input type="text" class="form-control" id="pseudo" name="pseudo" value="<?= $pseudo ?>" required />
-		</div>
+			<input type="text" class="form-control" id="pseudo" name="pseudo"  required />
+		</div> <br/>
 
 		<div>
 			<label class="col-form-label" for="password">Mot de passe :</label>
-			<input type="password" class="form-control" id="pass" name="password" value="<?= $password ?>" required />
-		</div>
-
-		<div>
-			<label class="form-check-label" for="cookie">Maintenir la connexion</label>
-			<input type="checkbox" id="cookie" name="cookie" />
-		</div>
+			<input type="password" class="form-control" id="pass" name="password" required />
+		</div> <br/>
 
 		<div class="text-center">
 			<input class="btn" name="connect" type="submit" />
