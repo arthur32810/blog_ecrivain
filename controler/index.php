@@ -12,6 +12,7 @@ require 'Controler.php';
 				$id = $_GET['id'];
 				$Chapter = new Chapter($id);
 				$chapter = $Chapter->chapter($id);
+				list($chapter, $comments) = $chapter;
 				require '../view/ChapterView.php';
 			}
 			else {
