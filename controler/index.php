@@ -19,4 +19,11 @@ require 'Controler.php';
 				header('Location: index.php?action=allChapter&existPost=no');
 			}
 		}
+		elseif ($_GET['action'] == 'connect'){
+			
+		}
+	}
+	else{
+		$chapters = Chapter::allChapter();
+		require '../view/ChaptersView.php';
 	}
