@@ -2,6 +2,28 @@
 	require '../model/DBManager.php';
 
 	class UserEntityManager{
+
+		public function getUser($user){
+			$db = DBManager::dbConnect();
+
+			$recuperation_user = $db->prepare('SELECT * FROM users WHERE pseudo = ?');
+			$recuperation_user->execute(array($user->getPseudo()));
+
+			$donnees = $recuperation_user->fetch();
+
+			return $donnees;
+		}
+
+		public function addUser($user){
+			$db = DBManager::dbConnect();
+
+			$addUser = $db->prepare('INSERT INTO users(pseudo, password, role) VALUES (:pseudo, :password, \'view\')');
+			$addUser->execute(array('pseudo' => $user->getPseudo(),
+									'password' => $user->getPassword()));
+
+			return $addUser;
+		}
+
 		public static function connexion($user){
 			$db = DBManager::dbConnect();
 

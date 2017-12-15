@@ -1,5 +1,5 @@
 <?php
-/*if(isset($_POST['add'])){
+if(isset($_POST['add'])){
 	if(isset($_POST['pseudo']) && isset($_POST['password'])){
 		if(!empty(trim($_POST['pseudo'])) && !empty(trim($_POST['password']))){
 			extract($_POST);
@@ -7,22 +7,23 @@
 			$pseudo = htmlspecialchars($_POST['pseudo']);
 			$password = htmlspecialchars($_POST['password']);
 
+			require_once '../model/UserEntity.php';
 			$user = new UserEntity();
 			$user->setPseudo($pseudo);
 			$user->setPassword($password);
 
-			$userManager = new Arthur\WriterBlog\Model\UserEntityManager();
-			$existUser = $userManager->getUser($user);
+			require_once '../model/UserEntityManager.php';
+			$existUser = UserEntityManager::getUser($user);
 
 			if(!empty($existUser)){
 				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=inscription&user=exist">';
 			}
 			else{
-				$mdp_crypt = $userManager->Cryptage($user); // Création du mot de pass crypter
+				$mdp_crypt = UserEntityManager::Cryptage($user); // Création du mot de pass crypter
 
 				$user->setPassword($mdp_crypt); //Modification du mot de passe dans l'entité
 
-				$addUser = $userManager->addUser($user); 
+				$addUser = UserEntityManager::addUser($user); 
 
 				if ($addUser === false) {
 					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=inscription&add=no">';
@@ -39,9 +40,9 @@
 	else{
 		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=inscription&complete=no">';
 	}
-}*/
+}
 
-if(isset($_POST['connect'])){
+elseif(isset($_POST['connect'])){
 	if(isset($_POST['pseudo']) && isset($_POST['password'])){
 		if(!empty(trim($_POST['pseudo'])) && !empty(trim($_POST['password']))){
 			extract($_POST);
