@@ -45,4 +45,28 @@
 
 	        header('Location: index.php?action=allChapter&deconnected=yes');
 	    }
+
+	    public static function updateUser(){
+	    
+	        $pseudo = $_SESSION['pseudo']; 
+
+	        require_once '../model/UserEntity.php';
+	        $user = new UserEntity();
+	        $user->setPseudo($pseudo);
+
+	        require_once '../model/UserEntityManager.php';
+	        $User = UserEntityManager::getUser($user);
+
+	        if(!empty($User)){
+	            $user->setPassword($User['password']);
+	            $user->setId($User['id']);
+	            $passwordCrypt = UserEntityManager::Cryptage($user);
+	            $user->setPassword($passwordCrypt);
+
+	            return $user;
+	        }
+	        else{
+	            echo '<meta http-equiv="refresh" content="0;URL=index.php?action=updateUser&pseudo=no-exist">'; 
+	        }
+	    }
 	}

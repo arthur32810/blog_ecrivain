@@ -32,6 +32,20 @@ require 'Controler.php';
 		elseif ($_GET['action'] == 'inscription'){
 			require('../view/userInscription.php');
 		}
+		elseif($_GET['action'] == 'updateUser'){ // Modification d'un utilisateur
+			session_start();
+
+			if (!isset($_SESSION['pseudo']))
+			{
+				//On n'est pas connecté
+				header('Location: index.php?action=listPosts&connected=no');
+				exit();
+			}
+			else{ 
+				User::updateUser();
+				require('../view/userUpdate.php');
+			}
+		}
 	}
 	else{
 		$chapters = Chapter::allChapter();
