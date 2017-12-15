@@ -58,7 +58,7 @@ require 'Controler.php';
 				exit();
 			}
 			elseif($_SESSION['role'] == 'author'){ 
-        		require('../view/writePost.php');
+        		require('../view/writeChapter.php');
 			}
 			else { 
 				header('Location: index.php?action=allChapter&right=no');
