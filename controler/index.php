@@ -65,6 +65,30 @@ require 'Controler.php';
 			}
 
 		}
+
+		// Modification d'un chapitre
+		elseif($_GET['action'] == 'update_chapter'){
+			session_start();
+
+			if (!isset($_SESSION['pseudo']))
+			{
+				//On n'est pas connecté
+				header('Location: index.php?action=connect');
+				exit();
+			}
+
+			elseif($_SESSION['role'] == 'author'){
+				if (isset($_GET['postId']) && $_GET['postId'] > 0) {
+					$postId = htmlspecialchars($_GET['postId']);
+					$chapter = Chapter::updateWrite();
+					require '../view/updateChapter.php';
+				}
+				else {
+					header('Location: index.php?action=listPosts&existPost=no');
+				}
+			}
+			else { header('Location: index.php?action=listPosts&right=no'); }
+		}
 	}
 	else{
 		$chapters = Chapter::allChapter();

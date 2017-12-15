@@ -30,7 +30,23 @@
 			}
 		}
 
-		
+		public static function updateWrite(){
+
+			require '../model/ChapterEntity.php';
+		    $chapter = new ChapterEntity();
+		    $chapter->setId($postId);
+
+		  	require '../model/ChapterEntityManager.php';
+		    $Chapter = Chapter::getPost($chapter);
+
+		    if(!empty($Chapter))
+		    {
+		        return $Chapter;
+		    }
+		    else{
+		    	header('Location: index.php?action=allChapter&existPost=no');
+		    }
+		}
 	}
 
 	class User{
