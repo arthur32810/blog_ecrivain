@@ -49,13 +49,15 @@ if(isset($_POST['connect'])){
 			$pseudo = htmlspecialchars($_POST['pseudo']);
 			$password = htmlspecialchars($_POST['password']);
 
+			require '../model/UserEntity.php';
+
 			$user = new UserEntity();
 			$user->setPseudo($pseudo);
 			$user->setPassword($password);
 
-			$userManager = new Arthur\WriterBlog\Model\UserEntityManager();
+			require '../model/UserEntityManager'
 
-			$mdp_crypt = $userManager->Cryptage($user); // Création du mot de pass crypter
+			$mdp_crypt = UserEntityManager::Cryptage($user); // Création du mot de pass crypter
 			$user->setPassword($mdp_crypt); //Modification du mot de passe dans l'entité
 
 			$connexion = $userManager->connexion($user); // Connexion de l'utilisateur
