@@ -29,6 +29,8 @@
 				header('Location: index.php?action=allChapter&existPost=no');
 			}
 		}
+
+		
 	}
 
 	class User{

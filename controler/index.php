@@ -46,6 +46,25 @@ require 'Controler.php';
 				require('../view/userUpdate.php');
 			}
 		}
+
+		//Ecriture d'un chapitre 
+		elseif($_GET['action'] == 'write_post'){
+			session_start();
+
+			if (!isset($_SESSION['pseudo']))
+			{
+				//On n'est pas connecté
+				header('Location: index.php?action=connect');
+				exit();
+			}
+			elseif($_SESSION['role'] == 'author'){ 
+        		require('../view/writePost.php');
+			}
+			else { 
+				header('Location: index.php?action=allChapter&right=no');
+			}
+
+		}
 	}
 	else{
 		$chapters = Chapter::allChapter();
