@@ -87,7 +87,7 @@ elseif(isset($_POST['connect'])){
 	}	
 }
 
-/*if(isset($_POST['search'])){
+elseif(isset($_POST['search'])){
 	if(isset($_POST['pseudoSearch']) && !empty(trim($_POST['pseudoSearch']))){
 		extract($_POST);
 
@@ -95,13 +95,12 @@ elseif(isset($_POST['connect'])){
 
 		$user->setPseudo($pseudo);
 
-		$userManager = new Arthur\WriterBlog\Model\UserEntityManager();
-        $existUser = $userManager->getUser($user);
+		$User = UserEntityManager::getUser($user);
 
-        if(!empty($existUser)){
-            $user->setPassword($existUser['password']);
-            $user->setId($existUser['id']);
-            $passwordCrypt = $userManager->Cryptage($user);
+        if(!empty($User)){
+            $user->setPassword($User['password']);
+            $user->setId($User['id']);
+            $passwordCrypt = UserEntityManager::Cryptage($user);
             $user->setPassword($passwordCrypt);
 
             $search='ok';
@@ -112,12 +111,10 @@ elseif(isset($_POST['connect'])){
 	}
 }
 
-if(isset($_POST['update'])){
+elseif(isset($_POST['update'])){
 	if(isset($_POST['pseudo']) && isset($_POST['password'])){
 		if(!empty(trim($_POST['pseudo'])) && !empty(trim($_POST['password']))){
 			extract($_POST);
-
-			
 			
 			if(!empty($_POST['new_password']) && !empty($_POST['confirmNewPassword']) && $_POST['new_password']==$_POST['confirmNewPassword']) {
 				$password = htmlspecialchars($_POST['new_password']);
@@ -131,36 +128,40 @@ if(isset($_POST['update'])){
 			$user->setPseudo($pseudo);
 			$user->setPassword($password);
 
-			$mdp_crypt = $userManager->Cryptage($user);
+			$mdp_crypt = UserEntityManager::Cryptage($user);
 			$user->setPassword($mdp_crypt);
 
 			if($_SESSION['role'] == 'admin'){
 				$role = $_POST['role'];
 				$user->setRole($role);
 			}
-			else{
-				$role = $existUser['role']; 
-				$user->setRole($role);
-			}
 
-			$existUser = $userManager->getUser($user);
+			$User = UserEntityManager::getUser($user);
 
-			if(!empty($existUser)){ 
-				$updateUser = $userManager->updateUser($user);
+			$user->setId($User['id']);
+
+			if(!empty($User)){ 
+				$updateUser = UserEntityManager::updateUser($user);
 
 				if ($updateUser === false) {
 					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=updateUser&add=no">';
 				}
 				else {
-					// Suppression des variables de session et de la session
-					$_SESSION = array();
-					session_destroy();
 
-					// Suppression des cookies de connexion automatique
-					setcookie('login', '');
-					setcookie('pass_hache', '');
+					if($_SESSION['role'] == 'admin' && $_SESSION['pseudo'] != $user->getPseudo()){
+						echo '<meta http-equiv="refresh" content="0;URL=index.php?action=updateUser&updateUser=yes">';
+					}
+					else { 
+						// Suppression des variables de session et de la session
+						$_SESSION = array();
+						session_destroy();
 
-					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=connect&updateUser=yes">';
+						// Suppression des cookies de connexion automatique
+						setcookie('login', '');
+						setcookie('pass_hache', '');
+
+						echo '<meta http-equiv="refresh" content="0;URL=index.php?action=connect&updateUser=yes">';
+					}					
 				}
 			}
 			else { 
@@ -176,22 +177,23 @@ if(isset($_POST['update'])){
 	}	
 }
 
-if(isset($_POST['delete'])){
+elseif(isset($_POST['delete'])){
 	extract($_POST);
 
-	$userId = $existUser['id'];
+	$pseudo = $_POST['pseudo'];
+			
+	$user->setPseudo($pseudo);
 
-	$user->setId($userId);
+	$User = UserEntityManager::getUser($user);
+	$user->setId($User['id']);
 
-	$userManager = new Arthur\WriterBlog\Model\UserEntityManager();
-
-	$deleteUser = $userManager->deleteUser($user);
+	$deleteUser = UserEntityManager::deleteUser($user);
 
 	if ($deleteUser === false) {
 		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=updateUser&deleteUser=no">';
 	}
 	else {
-		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=listPosts&deleteUser=yes">';
+		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=allChapter&deleteUser=yes">';
 	}
 
-}*/
+}

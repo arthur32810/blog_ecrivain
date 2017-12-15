@@ -60,6 +60,7 @@
 	        if(!empty($User)){
 	            $user->setPassword($User['password']);
 	            $user->setId($User['id']);
+	            $user->setRole($User['role']);
 	            $passwordCrypt = UserEntityManager::Cryptage($user);
 	            $user->setPassword($passwordCrypt);
 

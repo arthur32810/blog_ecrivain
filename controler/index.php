@@ -38,11 +38,11 @@ require 'Controler.php';
 			if (!isset($_SESSION['pseudo']))
 			{
 				//On n'est pas connecté
-				header('Location: index.php?action=listPosts&connected=no');
+				header('Location: index.php?action=allChapter&connected=no');
 				exit();
 			}
 			else{ 
-				User::updateUser();
+				$user = User::updateUser();
 				require('../view/userUpdate.php');
 			}
 		}
