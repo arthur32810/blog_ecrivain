@@ -48,7 +48,7 @@ require 'Controler.php';
 		}
 
 		//Ecriture d'un chapitre 
-		elseif($_GET['action'] == 'write_post'){
+		elseif($_GET['action'] == 'write_chapter'){
 			session_start();
 
 			if (!isset($_SESSION['pseudo']))

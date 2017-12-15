@@ -4,31 +4,31 @@ if(isset($_POST['add'])){
 		if(!empty(trim($_POST['chapter'])) && !empty(trim($_POST['title'])) && !empty(trim($_POST['content']))){
 			extract($_POST);
 
-			$chapter = htmlspecialchars($_POST['chapter']);
+			$nChapter = htmlspecialchars($_POST['chapter']);
 			$title = htmlspecialchars($_POST['title']);
 			$content = htmlspecialchars($_POST['content']);
 
 			require_once '../model/ChapterEntity.php';
-			$chpater = new ChapterEntity(); // Instance de la classe PostEntity
-			$chapter->setChapter($chapter);
+			$chapter = new ChapterEntity(); // Instance de la classe PostEntity
+			$chapter->setChapter($nChapter);
 			$chapter->setTitle($title);
 			$chapter->setContent($content);
 
 			require_once '../model/ChapterEntityManager.php';
 			$Chapter = ChapterEntityManager::getChapter($chapter); //Test si le chapitre existe
 
-			if(!empty($Chapter)){ //Chapitre existe, on redirige
-				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_post&postId='.$existPost['id'].'&chapter=exist">';
+			if(!empty($Chapter)){ //Chapitre existe, on redirige 
+				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_chapter&postId='.$Chapter['id'].'&chapter=exist">';
 		    }
 
 		    else{ //il n'existe pas, on continue
-		    	$createPost = ChapterEntityManager::createPost($chapter);
+		    	$createPost = ChapterEntityManager::createChapter($chapter);
 
 			    if ($createPost === false) {
-			    	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=write_post&create=no">';
+			    	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=write_chapter&create=no">';
 			    }
 			    else {
-			    	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=listPosts&create=yes">';
+			    	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=allChapter&create=yes">';
 				}
 
 			}

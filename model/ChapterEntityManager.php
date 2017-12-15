@@ -17,8 +17,8 @@
 			return $chapter;
 		}
 
-		public function createChapter($chapter){
-			$db = Manager::dbConnect();
+		public static function createChapter($chapter){
+			$db = DBManager::dbConnect();
 
 			$addPost = $db->prepare('INSERT INTO chapter (chapter, title, content, creation_date) VALUES (:chapter, :title, :content, NOW())');
 			$addPost->execute(array(

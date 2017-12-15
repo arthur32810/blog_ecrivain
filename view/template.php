@@ -73,7 +73,7 @@
                     } 
                 if($_SESSION['role'] == 'author'){ ?>
                     <li class="nav-item">
-                      <a class="nav-link" href="index.php?action=write_post"> Ecrire un chapitre</a>
+                      <a class="nav-link" href="index.php?action=write_chapter"> Ecrire un chapitre</a>
                     </li>
                <?php } ?>
                 
