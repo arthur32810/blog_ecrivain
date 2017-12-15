@@ -2,6 +2,19 @@
 	require '../model/DBManager.php';
 
 	class UserEntityManager{
+		public static function connexion($user){
+			$db = DBManager::dbConnect();
+
+			$recuperation_donnees = $db->prepare('SELECT * FROM users WHERE pseudo= :pseudo AND password= :password');
+			$recuperation_donnees ->execute(array(
+				'pseudo' => $user->getPseudo(),
+				'password' => $user->getPassword()));
+
+			$donnees = $recuperation_donnees->fetch();
+
+			return $donnees;
+		}
+
 		public static function Cryptage($user){
 
 			$Clef = DBManager::Clef();

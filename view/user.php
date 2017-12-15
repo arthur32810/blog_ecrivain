@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST['add'])){
+/*if(isset($_POST['add'])){
 	if(isset($_POST['pseudo']) && isset($_POST['password'])){
 		if(!empty(trim($_POST['pseudo'])) && !empty(trim($_POST['password']))){
 			extract($_POST);
@@ -39,7 +39,7 @@ if(isset($_POST['add'])){
 	else{
 		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=inscription&complete=no">';
 	}
-}
+}*/
 
 if(isset($_POST['connect'])){
 	if(isset($_POST['pseudo']) && isset($_POST['password'])){
@@ -55,12 +55,12 @@ if(isset($_POST['connect'])){
 			$user->setPseudo($pseudo);
 			$user->setPassword($password);
 
-			require '../model/UserEntityManager'
+			require '../model/UserEntityManager.php';
 
 			$mdp_crypt = UserEntityManager::Cryptage($user); // Création du mot de pass crypter
 			$user->setPassword($mdp_crypt); //Modification du mot de passe dans l'entité
 
-			$connexion = $userManager->connexion($user); // Connexion de l'utilisateur
+			$connexion = UserEntityManager::connexion($user); // Connexion de l'utilisateur
 
 			if(!empty($connexion)){
 				session_start();
@@ -76,7 +76,7 @@ if(isset($_POST['connect'])){
 						setcookie('pass', $_SESSION['pass'], time() + 30*24*3600, null, null, false, true); 
 					}
 				
-				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=listPosts&connected=ok">';	
+				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=allChapter&connected=ok">';	
 			}
 			else{ 
 				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=connect&good=no">';	
@@ -91,7 +91,7 @@ if(isset($_POST['connect'])){
 	}	
 }
 
-if(isset($_POST['search'])){
+/*if(isset($_POST['search'])){
 	if(isset($_POST['pseudoSearch']) && !empty(trim($_POST['pseudoSearch']))){
 		extract($_POST);
 
@@ -198,4 +198,4 @@ if(isset($_POST['delete'])){
 		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=listPosts&deleteUser=yes">';
 	}
 
-}
+}*/
