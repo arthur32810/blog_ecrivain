@@ -128,6 +128,6 @@
 ?>
 
 <?php 
-		require('../view/verification/comment.php');
-		require('../view/verification/moderation.php');
+		require('../view/comment.php');
+		require('../view/moderation.php');
 ?>
