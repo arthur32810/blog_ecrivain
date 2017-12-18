@@ -5,26 +5,27 @@ if(isset($_POST['add'])){
 			extract($_POST);
 
 			$comment = $_POST['comment'];
-			$postId = htmlspecialchars($_GET['id']);
+			$chapterId = htmlspecialchars($_GET['id']);
 
+			require_once '../model/CommentEntity.php';
 			$addComment = new CommentEntity();
-			$addComment->setPost_id($postId);
+			$addComment->setPost_id($chapterId);
 			$addComment->setUser_id($_SESSION['id']);
 			$addComment->setAuthor($_SESSION['pseudo']);
 			$addComment->setComment($comment);
 
-			$addCommentManager = new Arthur\WriterBlog\Model\CommentEntityManager();
-			$addComment = $addCommentManager->addComment($addComment);
+			require '../model/CommentEntityManager.php';
+			$addComment = CommentEntityManager::addComment($addComment);
 
 			 if ($addComment === false) {
-	            echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$_GET['id'].'&addComment=no">';
+	            echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$_GET['id'].'&addComment=no">';
 	        }
 	        else {
-	        	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$_GET['id'].'&addComment=yes">';
+	        	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$_GET['id'].'&addComment=yes">';
 	        }	
 		}
 		else{ 
-			echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$_GET['id'].'&complete=no">';
+			echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$_GET['id'].'&complete=no">';
 		}
 	}
 }
