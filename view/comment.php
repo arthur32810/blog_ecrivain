@@ -30,6 +30,43 @@ if(isset($_POST['add'])){
 	}
 }
 
+elseif(isset($_POST['update'])){
+	if(isset($_POST['comment'])){
+		if(!empty(trim($_POST['comment']))){
+			extract($_POST);
+
+			$commentId = $_POST['commentId'];
+			$comment = htmlspecialchars($_POST['comment']);
+			$chapterId = htmlspecialchars($_GET['id']);
+
+			require_once '../model/CommentEntity.php';
+			$setComment = new CommentEntity();
+			$setComment->setId($commentId);
+			$setComment->setComment($comment);
+
+			require_once '../model/CommentEntityManager.php';
+			$existComment = CommentEntityManager::getComment($setComment);
+
+			if(!empty($existComment)){
+				 
+				$updateComment = CommentEntityManager::updateComment($setComment); //Mise à jour du commentaire
+				
+				if ($updateComment === false) {
+					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&updateComment=no">';
+			    }
+			    else {
+			    	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&updateComment=yes">';
+			    }
+			
+			}
+			else{
+	        	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&idComment=no">';
+	        }
+			
+		}
+	}
+}
+
 elseif(isset($_POST['delete'])){
 		extract($_POST);
 
@@ -56,40 +93,4 @@ elseif(isset($_POST['delete'])){
 		else{
         	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&idComment=no">';
         }
-}
-
-elseif(isset($_POST['update'])){
-	if(isset($_POST['comment'])){
-		if(!empty(trim($_POST['comment']))){
-			extract($_POST);
-
-			$commentId = $_POST['commentId'];
-			$comment = htmlspecialchars($_POST['comment']);
-			$postId = htmlspecialchars($_GET['id']);
-
-			$setComment = new CommentEntity();
-			$setComment->setId($commentId);
-			$setComment->setComment($comment);
-
-			$commentManager = new Arthur\WriterBlog\Model\CommentEntityManager(); // Test si commentaire existe
-			$existComment = $commentManager->getComment($setComment);
-
-			if(!empty($existComment)){
-				 
-				$updateComment = $commentManager->updateComment($setComment); //Mise à jour du commentaire
-				
-				if ($updateComment === false) {
-					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&updateComment=no">';
-			    }
-			    else {
-			    	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&updateComment=yes">';
-			    }
-			
-			}
-			else{
-	        	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&idComment=no">';
-	        }
-			
-		}
-	}
 }
