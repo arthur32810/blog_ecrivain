@@ -30,14 +30,14 @@
 			}
 		}
 
-		public static function updateWrite(){
+		public static function updateWrite($chapterId){
 
 			require '../model/ChapterEntity.php';
 		    $chapter = new ChapterEntity();
-		    $chapter->setId($postId);
+		    $chapter->setId($chapterId);
 
 		  	require '../model/ChapterEntityManager.php';
-		    $Chapter = Chapter::getPost($chapter);
+		    $Chapter = ChapterEntityManager::getChapter($chapter);
 
 		    if(!empty($Chapter))
 		    {

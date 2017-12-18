@@ -78,16 +78,16 @@ require 'Controler.php';
 			}
 
 			elseif($_SESSION['role'] == 'author'){
-				if (isset($_GET['postId']) && $_GET['postId'] > 0) {
-					$postId = htmlspecialchars($_GET['postId']);
-					$chapter = Chapter::updateWrite();
+				if (isset($_GET['chapterId']) && $_GET['chapterId'] > 0) {
+					$chapterId = htmlspecialchars($_GET['chapterId']);
+					$chapter = Chapter::updateWrite($chapterId);
 					require '../view/updateChapter.php';
 				}
 				else {
-					header('Location: index.php?action=listPosts&existPost=no');
+					header('Location: index.php?action=allChapter&existPost=no');
 				}
 			}
-			else { header('Location: index.php?action=listPosts&right=no'); }
+			else { header('Location: index.php?action=allChapter&right=no'); }
 		}
 	}
 	else{
