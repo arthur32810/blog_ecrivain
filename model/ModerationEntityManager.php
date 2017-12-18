@@ -2,7 +2,7 @@
 	require_once 'DBManager.php';
 
 	class ModerationEntityManager{
-		public function getModerationComment($moderation){
+		public static function getModerationComment($moderation){
 			$db = DBManager::dbConnect();
 
 			$getModeration=$db->prepare('SELECT * FROM moderation WHERE id=?');
