@@ -71,26 +71,27 @@ elseif(isset($_POST['delete'])){
 		extract($_POST);
 
 		$commentId = htmlspecialchars($_POST['commentId']);
-		$postId = htmlspecialchars($_GET['id']);
+		$chapterId = htmlspecialchars($_GET['id']);
 
+		require_once '../model/CommentEntity.php';
 		$comment = new CommentEntity();
 		$comment->setId($commentId);
 
-		$commentManager = new Arthur\WriterBlog\Model\CommentEntityManager(); // Test si commentaire existe
-		$existComment = $commentManager->getComment($comment);
+		require_once '../model/CommentEntityManager.php';
+		$existComment = CommentEntityManager::getComment($comment);
 
-		$deleteComment = $commentManager->deleteComment($comment);
-		$deleteModeration = $commentManager->deleteCommentModeration($comment);
+		$deleteComment = CommentEntityManager::deleteComment($comment);
+		$deleteModeration = CommentEntityManager::deleteCommentModeration($comment);
 
 		if(!empty($existComment)){
 			if ($deleteComment === false) {
-			 	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&deleteComment=no">';
+			 	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&deleteComment=no">';
 		    }
 		    else {
-		    	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&deleteComment=yes">';
+		    	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&deleteComment=yes">';
 		    }
 		}
 		else{
-        	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&idComment=no">';
+        	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&idComment=no">';
         }
 }

@@ -11,7 +11,7 @@
 			return $comments;
 		}
 
-		public function getComment($comment)
+		public static function getComment($comment)
 		{
 			$db = DBManager::dbConnect();
 
