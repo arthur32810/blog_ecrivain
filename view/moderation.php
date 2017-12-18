@@ -6,7 +6,9 @@ if(isset($_POST['addModeration'])){
 
 			$cause = htmlspecialchars($_POST['cause']);
 			$commentId = htmlspecialchars($_POST['commentId']);
-			$postId = $_GET['id'];
+			$chapterId = $_GET['id'];
+
+			require_once '../Model/ModerationEntity.php';
 
 			$moderation = new ModerationEntity(); 
 			$moderation->setId_comment($commentId);
