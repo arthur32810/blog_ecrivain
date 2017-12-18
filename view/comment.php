@@ -9,12 +9,12 @@ if(isset($_POST['add'])){
 
 			require_once '../model/CommentEntity.php';
 			$addComment = new CommentEntity();
-			$addComment->setPost_id($chapterId);
-			$addComment->setUser_id($_SESSION['id']);
+			$addComment->setChapterId($chapterId);
+			$addComment->setUserId($_SESSION['id']);
 			$addComment->setAuthor($_SESSION['pseudo']);
 			$addComment->setComment($comment);
 
-			require '../model/CommentEntityManager.php';
+			require_once '../model/CommentEntityManager.php';
 			$addComment = CommentEntityManager::addComment($addComment);
 
 			 if ($addComment === false) {

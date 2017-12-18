@@ -13,7 +13,7 @@
 
 		public static function addComment($comment)
 		{
-			$db = BDManager::dbConnect();
+			$db = DBManager::dbConnect();
 			
 			$comments = $db->prepare('INSERT INTO comments(chapter_id, user_id, author, comment, comment_date) VALUES (?, ?, ?, ?, NOW())');
 			$affectedLines = $comments->execute(array(
