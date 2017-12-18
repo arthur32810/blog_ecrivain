@@ -47,32 +47,33 @@ elseif(isset($_POST['update'])){
 		if(!empty(trim($_POST['chapter'])) && !empty(trim($_POST['title'])) && !empty(trim($_POST['content']))){
 			extract($_POST);
 
-			$chapter = $_POST['chapter'];
+			$nChapter = $_POST['chapter'];
 			$title = $_POST['title'];
 			$content = $_POST['content'];
-			$postId = $post['id'];
 
-			$post = new PostEntity();
-			$post->setId($postId);
-			$post->setChapter($chapter);
-			$post->setTitle($title);
-			$post->setContent($content);
+			require_once '../model/ChapterEntity.php';
+			$chapter = new ChapterEntity();
+			$chapter->setId($chapterId);
+			$chapter->setChapter($nChapter);
+			$chapter->setTitle($title);
+			$chapter->setContent($content);
 
-			$postManager = new Arthur\WriterBlog\Model\PostEntityManager();
-			$existPost = $postManager->getPost($post);
+			require_once '../model/ChapterEntityManager.php';
+			$existChapter = ChapterEntityManager::getChapter($chapter);
 
-			if(!empty($existPost)){ 
-				$updatePost = $postManager->updatePost($post);
-				if ($updatePost === false) {
-					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=listPosts&update=no">'; 
+			if(!empty($existChapter)){ 
+				echo "ok";
+				$updateChapter = ChapterEntityManager::updateChapter($chapter);
+				if ($updateChapter === false) {
+					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=allChapter&update=no">'; 
 				}
 				else {
-					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&update=yes">'; 
+					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&update=yes">'; 
 				}
 
 			}
 			else{
-				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=listPosts&existPost=no">'; 
+				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=allChapter&existPost=no">'; 
 			}
 		}
 		else{ 
@@ -83,7 +84,7 @@ elseif(isset($_POST['update'])){
 		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_post&complete=no">'; 
 	}
 }
-
+/*
 elseif(isset($_POST['delete'])){
 	if(isset($_POST['chapter']) && isset($_POST['title']) && isset($_POST['content'])){
 		if(!empty(trim($_POST['chapter'])) && !empty(trim($_POST['title'])) && !empty(trim($_POST['content']))){
@@ -128,4 +129,4 @@ elseif(isset($_POST['delete'])){
 	else{ 
 		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_post&complete=no">'; 
 	}
-}
+}*/
