@@ -11,6 +11,19 @@
 			return $comments;
 		}
 
+		public function getComment($comment)
+		{
+			$db = DBManager::dbConnect();
+
+			$getComment = $db->prepare('SELECT id, user_id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin\') 
+											AS comment_date_fr FROM comments WHERE id = ?');
+			$getComment->execute(array($comment->getId()));
+
+			$comment = $getComment->fetch();			
+			
+			return $comment;
+		}
+
 		public static function addComment($comment)
 		{
 			$db = DBManager::dbConnect();
@@ -23,6 +36,16 @@
 												$comment->getComment()));
 			
 			return $affectedLines;
+		}
+
+		public static function updateComment($comment){
+			$db = DBManager::dbConnect();
+
+			$updateComment = $db->prepare('UPDATE comments SET comment = :comment, update_date=NOW() WHERE id =:id');
+			$updateComment->execute(array('comment'=>$comment->getComment(),
+											'id' => $comment->getId()));
+
+			return $updateComment;
 		}
 
 		public static function deleteComment($comment){
