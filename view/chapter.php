@@ -106,14 +106,14 @@ elseif(isset($_POST['delete'])){
 					require_once '../model/CommentEntityManager.php';
 
 					$deleteComment = CommentEntityManager::deleteCommentChapter($chapter);
-					$deletePostModeration = $PostEntityManager::deletePostModeration($chapter);
+					$deleteChapterModeration = ChapterEntityManager::deleteChapterModeration($chapter);
 				    
-				    /*if ($deleteComment === false) {
+				    if ($deleteComment === false) {
 				    	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=allChapter&delete=no">';
 					}
 					else{
 						echo '<meta http-equiv="refresh" content="0;URL=index.php?action=allChapter&delete=yes">';
-					}*/
+					}
 				}
 			}
 			else{

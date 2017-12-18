@@ -10,4 +10,22 @@
 			
 			return $comments;
 		}
+
+		public static function deleteComment($comment){
+			$db = DBManager::dbConnect();
+
+			$deleteComment = $db->prepare('DELETE FROM comments WHERE id=?');
+			$deleteComment->execute(array($comment->getId()));
+
+			return $deleteComment;
+		}
+
+		public function deleteCommentChapter($chapter){
+			$db = DBManager::dbConnect();
+
+			$deleteComment = $db->prepare('DELETE FROM comments WHERE post_id=?');
+			$deleteComment->execute(array($chapter->getId()));
+
+			return $deleteComment;
+		}
 	}

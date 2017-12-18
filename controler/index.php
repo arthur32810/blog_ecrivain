@@ -93,6 +93,7 @@ require 'Controler.php';
 		}
 	}
 	else{
+		session_start();
 		$chapters = Chapter::allChapter();
 		require '../view/ChaptersView.php';
 	}

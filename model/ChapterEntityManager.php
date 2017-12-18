@@ -29,15 +29,33 @@
 		}
 
 		public function updateChapter($chapter){
-		$db = DBManager::dbConnect();
+			$db = DBManager::dbConnect();
 
-		$updateChapter = $db->prepare('UPDATE chapter SET chapter = :chapter, title = :title, content = :content, update_date = NOW() WHERE id= :id');
-		$updateChapter->execute(array(
-							'chapter' => $chapter->getChapter(),
-							'title' => $chapter->getTitle(),
-							'content' => $chapter->getContent(),
-							'id' => $chapter->getId()));
+			$updateChapter = $db->prepare('UPDATE chapter SET chapter = :chapter, title = :title, content = :content, update_date = NOW() WHERE id= :id');
+			$updateChapter->execute(array(
+								'chapter' => $chapter->getChapter(),
+								'title' => $chapter->getTitle(),
+								'content' => $chapter->getContent(),
+								'id' => $chapter->getId()));
 
-		return $updateChapter;
-	}
+			return $updateChapter;
+		}
+
+		public static function deleteChapter($chapter){
+			$db = DBManager::dbConnect();
+
+			$deletePost = $db->prepare('DELETE FROM chapter WHERE id =?');
+			$deletePost->execute(array($chapter->getId()));
+
+			return $deletePost;
+		}
+
+		public static function deleteChapterModeration($chapter){
+			$db = DBManager::dbConnect();
+
+			$deletePostModeration = $db->prepare('DELETE FROM moderation WHERE post_id = ?');
+			$deletePostModeration->execute(array($chapter->getId()));
+
+			return $deletePostModeration;
+		}
 	}
