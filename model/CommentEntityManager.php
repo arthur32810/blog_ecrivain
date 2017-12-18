@@ -65,4 +65,13 @@
 
 			return $deleteComment;
 		}
+
+		public static function deleteCommentModeration($comment){
+			$db = DBManager::dbConnect();
+
+			$deleteCommentModeration = $db->prepare('DELETE FROM moderation WHERE id_comment = ?');
+			$deleteCommentModeration->execute(array($comment->getId()));
+
+			return $deleteCommentModeration;
+		}
 	}
