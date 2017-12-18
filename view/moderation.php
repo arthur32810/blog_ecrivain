@@ -9,29 +9,27 @@ if(isset($_POST['addModeration'])){
 			$chapterId = $_GET['id'];
 
 			require_once '../Model/ModerationEntity.php';
-
 			$moderation = new ModerationEntity(); 
 			$moderation->setId_comment($commentId);
-			$moderation->setPost_id($postId);
+			$moderation->setChapterId($chapterId);
 			$moderation->setCause($cause);
 
-			$moderationManager = new Arthur\WriterBlog\Model\ModerationEntityManager();
-
-			$existModeration = $moderationManager->getModerationComment($moderation);
+			require '../model/ModerationEntityManager.php';
+			$existModeration = ModerationEntityManager::getModerationComment($moderation);
 
 			if(!empty($existModeration)){
-				$addModeration = $moderationManager->addModeration($moderation);
+				$addModeration = ModerationEntityManager::addModeration($moderation);
 				if ($addModeration === false) {
-					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&addModeration=no">';
+					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&addModeration=no">';
 		        }
 		        else {
-		        	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&addModeration=yes">';
+		        	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&addModeration=yes">';
 		        }
 				
 				
 			}
 			else{
-				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&moderation=exist">';
+				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&moderation=exist">';
 		    }
 		}
 	}
