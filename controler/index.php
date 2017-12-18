@@ -4,10 +4,12 @@ require 'Controler.php';
 
 	if(isset($_GET['action'])){
 		if($_GET['action'] == 'allChapter'){ // Demande tous les chapitres
+			session_start();
 			$chapters = Chapter::allChapter();
 			require '../view/ChaptersView.php';
 		}
 		elseif ($_GET['action'] == 'chapter'){ // Demande le chapitre $_GET['id'];
+			session_start();
 			if (isset($_GET['id']) && $_GET['id'] > 0) {
 				$id = $_GET['id'];
 				$Chapter = new Chapter($id);

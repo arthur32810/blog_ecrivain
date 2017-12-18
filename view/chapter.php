@@ -34,11 +34,11 @@ if(isset($_POST['add'])){
 			}
 		}
 		else{
-			echo '<meta http-equiv="refresh" content="0;URL=index.php?action=write_post&complete=no">';
+			echo '<meta http-equiv="refresh" content="0;URL=index.php?action=write_chapter&complete=no">';
 		}
 	}
 	else{
-		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=write_post&complete=no">';
+		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=write_chapter&complete=no">';
 	}
 }
 
@@ -77,56 +77,54 @@ elseif(isset($_POST['update'])){
 			}
 		}
 		else{ 
-			echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_post&complete=no">'; 
+			echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_chapter&complete=no">'; 
 		}
 	}
 	else{ 
-		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_post&complete=no">'; 
+		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_chapter&complete=no">'; 
 	}
 }
-/*
+
 elseif(isset($_POST['delete'])){
 	if(isset($_POST['chapter']) && isset($_POST['title']) && isset($_POST['content'])){
 		if(!empty(trim($_POST['chapter'])) && !empty(trim($_POST['title'])) && !empty(trim($_POST['content']))){
 			extract($_POST);
 
-			$postId = $post['id'];
+			require_once '../model/ChapterEntity.php';
+			$chapter = new ChapterEntity();
+			$chapter->setId($chapterId);
 
-			$post = new PostEntity();
-			$post->setId($postId);
+			require_once '../model/ChapterEntityManager.php';
+			$existChapter = ChapterEntityManager::getChapter($chapter);
 
-			$postManager = new Arthur\WriterBlog\Model\PostEntityManager();
-			$existPost = $postManager->getPost($post);
-
-			if(!empty($existPost)){ 
-
-				$deletePost = $postManager->deletePost($post);
-				if ($deletePost === false) {
-					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=listPosts&delete=no">';
+			if(!empty($existChapter)){ 
+				$deleteChapter = ChapterEntityManager::deleteChapter($chapter);
+				if ($deleteChapter === false) {
+					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=allChapter&delete=no">';
 				}
 				else {
-					$commentManager = new Arthur\WriterBlog\Model\CommentEntityManager();
+					require_once '../model/CommentEntityManager.php';
 
-					$deleteComment = $commentManager->deleteCommentChapter($post);
-					$deletePostModeration = $postManager->deletePostModeration($post);
+					$deleteComment = CommentEntityManager::deleteCommentChapter($chapter);
+					$deletePostModeration = $PostEntityManager::deletePostModeration($chapter);
 				    
-				    if ($deleteComment === false) {
-				    	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=listPosts&delete=no">';
+				    /*if ($deleteComment === false) {
+				    	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=allChapter&delete=no">';
 					}
 					else{
-						echo '<meta http-equiv="refresh" content="0;URL=index.php?action=listPosts&delete=yes">';
-					}
+						echo '<meta http-equiv="refresh" content="0;URL=index.php?action=allChapter&delete=yes">';
+					}*/
 				}
 			}
 			else{
-				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=listPosts&existPost=no">'; 
+				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=allChapter&existPost=no">'; 
 			}
 		}
 		else{ 
-			echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_post&complete=no">'; 
+			echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_chapter&complete=no">'; 
 		}
 	}
 	else{ 
-		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_post&complete=no">'; 
+		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_chapter&complete=no">'; 
 	}
-}*/
+}
