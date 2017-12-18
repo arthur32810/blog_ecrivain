@@ -91,6 +91,17 @@ require 'Controler.php';
 			}
 			else { header('Location: index.php?action=allChapter&right=no'); }
 		}
+
+		//Modération
+		elseif($_GET['action']== 'Moderation'){
+			session_start();
+
+			if($_SESSION['role']=='admin' || $_SESSION['role']=='moderator'){
+				$moderation = Moderation::Moderation();
+			}
+			else { header('Location: index.php?action=allChapter&right=no'); }
+
+		}
 	}
 	else{
 		session_start();
