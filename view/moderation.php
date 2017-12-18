@@ -18,6 +18,9 @@ if(isset($_POST['addModeration'])){
 			$existModeration = ModerationEntityManager::getModerationComment($moderation);
 
 			if(!empty($existModeration)){
+				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&moderation=exist">';			
+			}
+			else{
 				$addModeration = ModerationEntityManager::addModeration($moderation);
 				if ($addModeration === false) {
 					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&addModeration=no">';
@@ -26,10 +29,6 @@ if(isset($_POST['addModeration'])){
 		        	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&addModeration=yes">';
 		        }
 				
-				
-			}
-			else{
-				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&moderation=exist">';
 		    }
 		}
 	}

@@ -5,7 +5,7 @@
 		public static function getModerationComment($moderation){
 			$db = DBManager::dbConnect();
 
-			$getModeration=$db->prepare('SELECT * FROM moderation WHERE id=?');
+			$getModeration=$db->prepare('SELECT * FROM moderation WHERE id_comment=?');
 			$getModeration->execute(array($moderation->getId_comment()));
 
 			$moderation = $getModeration->fetch();
