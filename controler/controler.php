@@ -1,14 +1,12 @@
 <?php
 	class Chapter{
 		public static function allChapter() {
-			session_start();
 			require_once '../model/ChapterEntityManager.php';
 			$chapters = ChapterEntityManager::getAllChapter();
 			return $chapters;
 		}
 
 		public  function chapter($id){
-			session_start();
 			require_once '../model/ChapterEntity.php';
 
 			$post = new ChapterEntity();

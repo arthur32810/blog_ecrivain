@@ -27,4 +27,17 @@
 							'content' => $chapter->getContent()));
 			return $addPost;
 		}
+
+		public function updateChapter($chapter){
+		$db = DBManager::dbConnect();
+
+		$updateChapter = $db->prepare('UPDATE chapter SET chapter = :chapter, title = :title, content = :content, update_date = NOW() WHERE id= :id');
+		$updateChapter->execute(array(
+							'chapter' => $chapter->getChapter(),
+							'title' => $chapter->getTitle(),
+							'content' => $chapter->getContent(),
+							'id' => $chapter->getId()));
+
+		return $updateChapter;
+	}
 	}

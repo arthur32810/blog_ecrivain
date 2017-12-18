@@ -17,7 +17,7 @@
 <?php ob_start(); ?>
 	
 
-	<?php include('../view/conditionPost.php'); ?>
+	<?php include('../view/conditionChapter.php'); ?>
 
 	<a href="index.php?action=allChapter"> Revenir aux chapitres </a>
 
