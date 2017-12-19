@@ -59,7 +59,7 @@
 				<p> <?= htmlspecialchars($comment['comment']) ?> </p>
 
 				<?php 
-					if(!empty($_SESSION['pseudo']) && $comment['user_id'] != $_SESSION['id']){?>  <!--Formulaire de signalement -->
+					if(empty($_SESSION['pseudo']) || $comment['user_id'] != $_SESSION['id']){?>  <!--Formulaire de signalement -->
 						<p> 
 							<button type="button" data-toggle="modal" data-target="#signaler<?=$i?>" class="btn btn-primary">Signaler</button>
 							<div class="modal fade" id="signaler<?=$i?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
