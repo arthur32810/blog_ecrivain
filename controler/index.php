@@ -1,6 +1,8 @@
 <?php
 
-require 'controler.php';
+require 'controlerChapter.php';
+require 'controlerUser.php';
+require 'controlerModeration.php';
 
 	if(isset($_GET['action'])){
 		if($_GET['action'] == 'allChapter'){ // Demande tous les chapitres
