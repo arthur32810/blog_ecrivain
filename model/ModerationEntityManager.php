@@ -10,6 +10,17 @@
 			return $moderations;
 		}
 
+		public function getModeration($moderation){
+			$db = DBManager::dbConnect();
+
+			$getModeration=$db->prepare('SELECT * FROM moderation WHERE id=?');
+			$getModeration->execute(array($moderation->getId()));
+
+			$moderation = $getModeration->fetch();
+
+			return $moderation;
+		}
+
 		public static function getModerationComment($moderation){
 			$db = DBManager::dbConnect();
 

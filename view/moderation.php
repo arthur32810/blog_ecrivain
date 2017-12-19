@@ -48,7 +48,7 @@ if(isset($_POST['ignoreModeration'])){
 		$existModeration = ModerationEntityManager::getModeration($moderation);
 
 		if(!empty($existModeration)){
-			$deleteModeration = $moderationManager->deleteModeration($moderation);
+			$deleteModeration = ModerationEntityManager::deleteModeration($moderation);
 
 			if ($deleteModeration === false) {
 	    		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=moderation&deleteModeration=no">';  
