@@ -40,11 +40,12 @@ if(isset($_POST['ignoreModeration'])){
 
 		$moderationId = $_POST['moderationId'];
 
+		require_once '../model/ModerationEntity.php';
 		$moderation = new ModerationEntity();
 		$moderation->setId($moderationId);
 
-		$moderationManager = new Arthur\WriterBlog\Model\ModerationEntityManager(); //Test si billet de modération existe
-		$existModeration = $moderationManager->getModeration($moderation);
+		require_once '../model/ModerationEntityManager.php';
+		$existModeration = ModerationEntityManager::getModeration($moderation);
 
 		if(!empty($existModeration)){
 			$deleteModeration = $moderationManager->deleteModeration($moderation);

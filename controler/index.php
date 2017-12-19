@@ -98,7 +98,7 @@ require 'Controler.php';
 
 			if($_SESSION['role']=='admin' || $_SESSION['role']=='moderator'){
 				$moderation = new Moderation();
-				$moderation = $moderation->moderation();
+				$moderations = $moderation->moderation();
 				require '../view/moderationView.php';
 			}
 			else { header('Location: index.php?action=allChapter&right=no'); }
