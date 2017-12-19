@@ -127,37 +127,40 @@ if(isset($_POST['updateModeration'])){
 if(isset($_POST['deleteModeration'])){
 	extract($_POST);
 
-	$postId = $post['id'];
+	$chapterId = $chapter['id'];
 	$commentId = htmlspecialchars($_POST['commentId']);
 	$moderationId = htmlspecialchars($_POST['moderationId']);
 
-	$post = new PostEntity();
-	$post->setId($postId);
+	require_once '../model/ChapterEntity.php';
+	$chapter = new ChapterEntity();
+	$chapter->setId($chapterId);
 
-	$postManager = new Arthur\WriterBlog\Model\PostEntityManager(); // test si le post existe
-	$existPost = $postManager->getPost($post);
+	require_once '../model/ChapterEntityManager.php';
+	$existPost = ChapterEntityManager::getChapter($chapter);
 
 	if(!empty($existPost)){
+		require_once '../model/CommentEntity.php';
 		$comment = new CommentEntity();
 		$comment->setId($commentId);
 
-		$commentManager = new  Arthur\WriterBlog\Model\CommentEntityManager(); // Test si le commentaire existe
-		$existComment = $commentManager->getComment($comment);
+		require_once '../model/CommentEntityManager.php';
+		$existComment = CommentEntityManager::getComment($comment);
 
 		if(!empty($existComment)){
+			require_once '../model/ModerationEntity.php';
 			$moderation = new ModerationEntity();
 			$moderation->setId($moderationId);
 
-			$moderationManager = new Arthur\WriterBlog\Model\ModerationEntityManager(); // Test si le billet de moderation existe
-			$existModeration = $moderationManager->getModeration($moderation);
+			require_once '../model/ModerationEntityManager.php';
+			$existModeration = ModerationEntityManager::getModeration($moderation);
 
 			if(!empty($existModeration)){
-				$deleteComment = $commentManager->deleteComment($comment); // Suppression du commentaire
+				$deleteComment = CommentEntityManager::deleteComment($comment); // Suppression du commentaire
 				if ($deleteComment === false) {
-					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&deleteComment=no">';
+					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&deleteComment=no">';
 		        }
 		        else{
-		        	$deleteModeration = $moderationManager->deleteModeration($moderation); // Suppression du billet de modération
+		        	$deleteModeration = ModerationEntityManager::deleteModeration($moderation); // Suppression du billet de modération
 		        	if ($updateComment === false) {
 		        		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=moderation&deleteModeration=no">';
 	                }
@@ -171,11 +174,11 @@ if(isset($_POST['deleteModeration'])){
            	} 
 		}
         else{
-        	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&idComment=no">';
+        	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&idComment=no">';
         }
 	}
 	else{
-		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=listPosts&existPost=no">'; 
+		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=allChapter&existPost=no">'; 
 	}
 	
 }
