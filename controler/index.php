@@ -93,12 +93,13 @@ require 'Controler.php';
 		}
 
 		//Modération
-		elseif($_GET['action']== 'Moderation'){
+		elseif($_GET['action']== 'moderation'){
 			session_start();
 
 			if($_SESSION['role']=='admin' || $_SESSION['role']=='moderator'){
-				$moderation = Moderation();
-				$moderation = $moderation->Moderation();
+				$moderation = new Moderation();
+				$moderation = $moderation->moderation();
+				echo $_SESSION['role'];
 			}
 			else { header('Location: index.php?action=allChapter&right=no'); }
 
