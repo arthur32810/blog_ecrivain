@@ -2,6 +2,14 @@
 	require_once 'DBManager.php';
 
 	class ModerationEntityManager{
+		public static function getModerations(){
+			$db = DBManager::dbConnect();
+
+			$moderations = $db->query('SELECT * FROM moderation ORDER BY id ');
+
+			return $moderations;
+		}
+
 		public static function getModerationComment($moderation){
 			$db = DBManager::dbConnect();
 
