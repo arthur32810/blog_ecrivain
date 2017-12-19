@@ -43,4 +43,13 @@
 
 			return $addModeration;
 		}
+
+		public function deleteModeration($moderation){
+			$db = DBManager::dbConnect();
+
+			$deleteModeration = $db->prepare('DELETE FROM moderation WHERE id = ?');
+			$deleteModeration->execute(array($moderation->getId()));
+
+			return $deleteModeration;
+		}
 	}
