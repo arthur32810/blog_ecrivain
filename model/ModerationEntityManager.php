@@ -10,7 +10,7 @@
 			return $moderations;
 		}
 
-		public function getModeration($moderation){
+		public static function getModeration($moderation){
 			$db = DBManager::dbConnect();
 
 			$getModeration=$db->prepare('SELECT * FROM moderation WHERE id=?');
@@ -44,7 +44,7 @@
 			return $addModeration;
 		}
 
-		public function deleteModeration($moderation){
+		public static function deleteModeration($moderation){
 			$db = DBManager::dbConnect();
 
 			$deleteModeration = $db->prepare('DELETE FROM moderation WHERE id = ?');
