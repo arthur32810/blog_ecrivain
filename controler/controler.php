@@ -89,11 +89,11 @@
 	}
 
 	class Moderation{
-		public static function Moderation(){		
+		public function Moderation(){		
 			require_once '../model/ModerationEntityManager.php';
 		    $moderations = ModerationEntityManager::getModerations();
 
-		    return $moderation
+		    return $moderations;
 		}
 			
 	}
