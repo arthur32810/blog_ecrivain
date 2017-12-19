@@ -53,7 +53,7 @@
 		public static function deleteChapterModeration($chapter){
 			$db = DBManager::dbConnect();
 
-			$deletePostModeration = $db->prepare('DELETE FROM moderation WHERE post_id = ?');
+			$deletePostModeration = $db->prepare('DELETE FROM moderation WHERE chapter_id = ?');
 			$deletePostModeration->execute(array($chapter->getId()));
 
 			return $deletePostModeration;
