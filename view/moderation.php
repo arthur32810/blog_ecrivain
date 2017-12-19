@@ -68,36 +68,38 @@ if(isset($_POST['updateModeration'])){
 	if(isset($_POST['comment']) && !empty(trim($_POST['comment']))){
 		extract($_POST);
 
-		$postId = $post['id'];
+		$chapterId = $chapter['id'];
 		$commentId = $_POST['commentId'];
 		$moderationId = $_POST['moderationId'];
 		$comment = htmlspecialchars($_POST['comment']);
 
 
-
+		require_once '../model/CommentEntity.php';
 		$setComment = new CommentEntity();
 		$setComment->setId($commentId);
 		$setComment->setComment($comment);
 
-		$commentManager = new Arthur\WriterBlog\Model\CommentEntityManager(); // Test si commentaire existe
-		$existComment = $commentManager->getComment($setComment);
+		require_once '../model/CommentEntityManager.php';
+		$existComment = CommentEntityManager::getComment($setComment);
 
 		if(!empty($existComment)){
+			require_once '../model/ModerationEntity.php';
 			$moderation = new ModerationEntity();
 			$moderation->setId($moderationId);
 
-			$moderationManager = new Arthur\WriterBlog\Model\ModerationEntityManager(); //Test si billet de modération existe
-			$existModeration = $moderationManager->getModeration($moderation);
+			require_once '../model/ModerationEntityManager.php';
+			$existModeration = ModerationEntityManager::getModeration($moderation);
 
 			if(!empty($existModeration)){
-				$commentManager = new Arthur\WriterBlog\Model\CommentEntityManager(); // Mise à jour du commentaire
-				$updateComment = $commentManager->updateComment($setComment);
+
+				require_once '../model/CommentEntityManager.php';
+				$updateComment = CommentEntityManager::updateComment($setComment);
 
 				if ($updateComment === false) {
-					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&updateComment=no">';  
+					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&updateComment=no">';  
 			    }
 			    else {
-			    	$deleteModeration = $moderationManager->deleteModeration($moderation); //Suppression du billet de modération
+			    	$deleteModeration = ModerationEntityManager::deleteModeration($moderation); //Suppression du billet de modération
 			    	if ($deleteModeration === false) {
 			    		echo '<meta http-equiv="refresh" content="0;URL=index.php?action=moderation&deleteModeration=no">';  
 			        }
@@ -112,7 +114,7 @@ if(isset($_POST['updateModeration'])){
 			
 		}
         else{
-        	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=post&id='.$postId.'&idComment=no">';  
+        	echo '<meta http-equiv="refresh" content="0;URL=index.php?action=chapter&id='.$chapterId.'&idComment=no">';  
         }
 
 		
