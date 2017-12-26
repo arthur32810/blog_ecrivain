@@ -18,7 +18,7 @@ if(isset($_POST['add'])){
 			$Chapter = ChapterEntityManager::getChapter($chapter); //Test si le chapitre existe
 
 			if(!empty($Chapter)){ //Chapitre existe, on redirige 
-				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_chapter&postId='.$Chapter['id'].'&chapter=exist">';
+				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=update_chapter&chapterId='.$Chapter['id'].'&chapter=exist">';
 		    }
 
 		    else{ //il n'existe pas, on continue

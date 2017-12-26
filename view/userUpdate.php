@@ -31,6 +31,11 @@
 		  Le profil utilisateur a été mis à jour
 		</div> <?php
 	}
+	elseif (!empty($_GET['mdp']) && $_GET['mdp'] == 'notegal'){ // Utilisateur bien mis à jour
+		?> <div class="alert alert-danger" role="alert">
+		 	Les nouveaux mots de passe ne sont pas identiques
+		</div> <?php
+	}
 
 ?>
 
@@ -55,7 +60,7 @@
 	<form action="" method="post">
 		<div>
 			<label class="col-form-label" for="pseudo">Pseudo* </label>
-			<input type="text" class="form-control" id="pseudo" name="pseudo" value="<?php echo $user->getPseudo(); ?> " required />
+			<input type="text" class="form-control" id="pseudo" name="pseudo" value="<?php echo $user->getPseudo(); ?>" required />
 		</div>
 
 		<div>

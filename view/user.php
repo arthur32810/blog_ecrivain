@@ -116,56 +116,63 @@ elseif(isset($_POST['update'])){
 		if(!empty(trim($_POST['pseudo'])) && !empty(trim($_POST['password']))){
 			extract($_POST);
 			
-			if(!empty($_POST['new_password']) && !empty($_POST['confirmNewPassword']) && $_POST['new_password']==$_POST['confirmNewPassword']) {
-				$password = htmlspecialchars($_POST['new_password']);
+			if(!empty($_POST['new_password']) && !empty($_POST['confirmNewPassword']) && $_POST['new_password']!=$_POST['confirmNewPassword']) {
+				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=updateUser&mdp=notegal">';
 			}
 			else{
-				$password = htmlspecialchars($_POST['password']);
-			}
-
-			$pseudo = $_POST['pseudo'];
+				if(!empty($_POST['new_password']) && !empty($_POST['confirmNewPassword']) && $_POST['new_password']==$_POST['confirmNewPassword']) {
+				$password = htmlspecialchars($_POST['new_password']);
+				$ok='ok';
+				}			
 			
-			$user->setPseudo($pseudo);
-			$user->setPassword($password);
-
-			$mdp_crypt = UserEntityManager::Cryptage($user);
-			$user->setPassword($mdp_crypt);
-
-			if($_SESSION['role'] == 'admin'){
-				$role = $_POST['role'];
-				$user->setRole($role);
-			}
-
-			$User = UserEntityManager::getUser($user);
-
-			$user->setId($User['id']);
-
-			if(!empty($User)){ 
-				$updateUser = UserEntityManager::updateUser($user);
-
-				if ($updateUser === false) {
-					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=updateUser&add=no">';
+				else{
+					$password = htmlspecialchars($_POST['password']);
+					$ok = 'ok';
 				}
-				else {
 
-					if($_SESSION['role'] == 'admin' && $_SESSION['pseudo'] != $user->getPseudo()){
-						echo '<meta http-equiv="refresh" content="0;URL=index.php?action=updateUser&updateUser=yes">';
+				$pseudo = $_POST['pseudo'];
+			
+				$getUser = new UserEntity();
+				$getUser->setPseudo($pseudo);
+
+				$User = UserEntityManager::getUser($getUser);
+				
+				
+				if(empty($User) || (trim($User['pseudo']) == $user->getPseudo())){ 
+					$user->setPseudo($pseudo);
+					$user->setPassword($password);
+
+					$mdp_crypt = UserEntityManager::Cryptage($user);
+					$user->setPassword($mdp_crypt);
+
+
+					if($_SESSION['role'] == 'admin'){
+						$role = $_POST['role'];
+						$user->setRole($role);
 					}
-					else { 
-						// Suppression des variables de session et de la session
-						$_SESSION = array();
-						session_destroy();
 
-						// Suppression des cookies de connexion automatique
-						setcookie('login', '');
-						setcookie('pass_hache', '');
-
-						echo '<meta http-equiv="refresh" content="0;URL=index.php?action=connect&updateUser=yes">';
-					}					
+					$updateUser = UserEntityManager::updateUser($user);
+					if ($updateUser === false) {
+						echo '<meta http-equiv="refresh" content="0;URL=index.php?action=updateUser&add=no">';
+					}
+					else {
+						if($_SESSION['role'] == 'admin' && $_SESSION['pseudo'] != $user->getPseudo()){
+							echo '<meta http-equiv="refresh" content="0;URL=index.php?action=updateUser&updateUser=yes">';
+						}
+						else { 
+							// Suppression des variables de session et de la session
+							$_SESSION = array();
+							session_destroy();
+							// Suppression des cookies de connexion automatique
+							setcookie('login', '');
+							setcookie('pass_hache', '');
+							echo '<meta http-equiv="refresh" content="0;URL=index.php?action=connect&updateUser=yes">';
+						}					
+					}
 				}
-			}
-			else { 
-				echo '<meta http-equiv="refresh" content="0;URL=index.php?action=updateUser&pseudo=exist">';
+				else { 
+					echo '<meta http-equiv="refresh" content="0;URL=index.php?action=updateUser&pseudo=exist">';
+				}
 			}
 		}
 		else{

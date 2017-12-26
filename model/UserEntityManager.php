@@ -38,6 +38,7 @@
 		}
 
 		public static function updateUser($user){
+
 			$db = DBManager::dbConnect();
 
 			$updateUser = $db->prepare('UPDATE users SET pseudo =:pseudo, password=:password, role=:role WHERE id=:id');
@@ -46,8 +47,10 @@
 								'password' => $user->getPassword(),
 								'role'=> $user->getRole(),
 								'id' => $user->getId()));
-
+			
 			return $updateUser;
+
+
 		}
 
 		public static function deleteUser($user){
